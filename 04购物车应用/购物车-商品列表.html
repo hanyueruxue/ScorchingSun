@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<!-- 新 Bootstrap 核心 CSS 文件 -->
+		<link rel="stylesheet" href="bootstrap.css">
+		
+		<style type="text/css">
+			body{
+				padding-top: 50px;
+			}
+			div[class^=col] {
+				padding: 10px
+			}
+			.item{
+				height: 120px;
+				border-radius : 4px;
+				background : #eee;
+				text-align: center;
+			}
+		</style>
+	</head>
+	
+	<body>
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-8">
+					<table id="table_data" class="table table-hover">
+						<thead>
+							<tr class="text-center">
+								<td class="active">商品名称</td>
+								<td class="success">商品价格</td>
+								<td class="warning">商品数量</td>
+								<td class="danger">操作</td>
+							</tr>
+						</thead>
+						<tbody>							
+							<tr>
+								<td class="text-center"><h5 class="num">商品名称</h5></td>
+								<td class="text-center"><h5 class="price">商品价格</h5></td>
+								<td class="text-center" style="width:150px">
+									<div class="input-group">
+										<span role="op-minus" class="input-group-addon input-sm">-</span>
+										<input role="count" type="text" class="form-control" placeholder="count">
+										<span role="op-add" class="input-group-addon input-sm">+</span>
+									</div>
+								</td>
+								<td class="text-center">
+									<button class="btn btn-danger btn-sm" href="#" role="delete">删除</button>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+					<hr>
+					<div class="text-center">
+						<a class="btn btn-primary btn-lg">提交订单</a>
+					</div>
+				</div>
+			</div>
+		</div>
+		<script src="../js/common.js" type="text/javascript" charset="utf-8"></script>
+		<script>
+			//从cookie中取出数组
+			var plist = JSON.parse(getCookie("list"));
+			
+			plist.forEach(function(p) {
+				var htmlstr = `
+				<tr>
+					<td class="text-center"><h5 class="num">${p.pname}</h5></td>
+					<td class="text-center"><h5 class="price">${p.price}</h5></td>
+					<td class="text-center" style="width:150px">
+						<div class="input-group">
+							<span role="op-minus" class="input-group-addon input-sm">-</span>
+							<input value="${p.count}" role="count" type="text" class="form-control" placeholder="count">
+							<span role="op-add" class="input-group-addon input-sm">+</span>
+						</div>
+					</td>
+					<td class="text-center">
+						<button class="btn btn-danger btn-sm" href="#" role="delete">删除</button>
+					</td>
+				</tr>`;
+				
+				document.getElementById("table_data").children[0].innerHTML += htmlstr;
+			})
+		</script>
+	</body>
+</html>
+

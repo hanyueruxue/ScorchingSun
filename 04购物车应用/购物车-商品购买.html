@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<!-- 新 Bootstrap 核心 CSS 文件 -->
+		<link rel="stylesheet" href="bootstrap.css">
+		
+		<style type="text/css">
+			body{
+				padding-top: 50px;
+			}
+			div[class^=col] {
+				padding: 10px
+			}
+			.item{
+				padding: 10px 0;
+				border-radius : 4px;
+				background : #eee;
+				text-align: center;
+				
+			}
+			.item img {
+				border-radius: 6px;
+				box-shadow: 0 0 3px 0px #666;
+				cursor: pointer;
+			}
+		</style>
+	</head>
+	
+	<body>
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-3 col-md-6 col-sm-9 col-xs-12">
+					<div class="item">
+						<img src="a.png"/>
+						<p class="text-center">商品1</p>
+						<p>价格： $<code>56.3</code> 编号：<span>2310</span></p>
+						<a class="buy-btn btn btn-warning btn-sm">购买</a>
+					</div>
+				</div>
+				<div class="col-lg-3 col-md-6 col-sm-9 col-xs-12">
+					<div class="item">
+						<img src="b.png"/>
+						<p class="text-center">商品2</p>
+						<p>价格： $<code>999</code> 编号：<span>5610</span></p>
+						<a class="buy-btn btn btn-warning btn-sm">购买</a>
+					</div>
+				</div>
+				<div class="col-lg-3 col-md-6 col-sm-9 col-xs-12">
+					<div class="item">
+						<img src="c.png"/>
+						<p class="text-center">商品3</p>
+						<p>价格： $<code>156</code> 编号：<span>1306</span></p>
+						<a class="buy-btn btn btn-warning btn-sm">购买</a>
+					</div>
+				</div>
+				<div class="col-lg-3 col-md-6 col-sm-9 col-xs-12">
+					<div class="item">
+						<img src="d.png"/>
+						<p class="text-center">商品4</p>
+						<p>价格： $<code>99.5</code> 编号：<span>9985</span></p>
+						<a class="buy-btn btn btn-warning btn-sm">购买</a>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+	</body>
+	<script src="../js/common.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript">
+		var btns = $(".buy-btn");
+		btns.forEach(function(btn){
+			btn.onclick = function(){
+				var price = this.previousElementSibling.children[0].innerText;
+				var code = this.previousElementSibling.children[1].innerText;
+				var pname = this.previousElementSibling.previousElementSibling.innerText;
+				var count = 1;
+				
+				var goods = { price, code,  pname, count };
+				
+				var cookiestr = getCookie("list");
+				
+				if(!cookiestr) {
+					var arr = [];
+				} else {
+					arr = JSON.parse(cookiestr);
+				}
+				
+				//检测是否存在
+				var exsit = false;
+				
+				arr.forEach(function(item){
+					if(item.code == goods.code) {
+						exsit = true;
+						item.count++;
+					}
+				})
+				
+				if(!exsit) {;
+					arr.push(goods);
+				}
+				
+				
+				
+				setCookie("list", JSON.stringify(arr), 10);
+				
+				// setCookie("price", price, 30);
+				// setCookie("code", code, 30);
+				// setCookie("pname", pname, 30);
+			}
+		})
+	</script>
+	
+</html>
